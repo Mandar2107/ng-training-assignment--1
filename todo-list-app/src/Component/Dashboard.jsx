@@ -24,8 +24,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import NewTask from "./NewTask";
-// import EditTask from "./EditTask";
-// import DeleteTask from "./DeleteTask";
+import EditTask from "./EditTask";
+import DeleteTask from "./DeleteTask"; 
 
 function CustomPagination({
   totalRecords,
@@ -80,14 +80,14 @@ function CustomPagination({
           <IconButton
             style={{ height: "20px" }}
             onClick={() => setRecordsPerPage((prev) => prev + 1)} 
-            disabled={recordsPerPage === 20 || recordsPerPage === totalRecords} 
+            disabled={recordsPerPage === 20 || recordsPerPage === totalRecords} // Disable if on last page
           >
             <span style={{ fontSize: "10px" }}>▲</span>
           </IconButton>
           <IconButton
             style={{ height: "20px" }}
             onClick={() => setRecordsPerPage((prev) => prev - 1)}
-            disabled={recordsPerPage === 4}
+            disabled={recordsPerPage === 4} // Disable if on first page
           >
             <span style={{ fontSize: "10px" }}>▼</span>
           </IconButton>
@@ -104,7 +104,7 @@ function CustomPagination({
         <Button
           variant="outlined"
           onClick={handleFirstPage}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1} // Disable if on first page
         >
           <FirstPageIcon /> First
         </Button>
@@ -112,7 +112,7 @@ function CustomPagination({
         <Button
           variant="outlined"
           onClick={handlePrevPage}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1} // Disable if on first page
         >
           <NavigateBeforeIcon /> Prev
         </Button>
@@ -122,7 +122,7 @@ function CustomPagination({
         <Button
           variant="outlined"
           onClick={handleNextPage}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages} // Disable if on last page
         >
           Next <NavigateNextIcon />
         </Button>
@@ -130,7 +130,7 @@ function CustomPagination({
         <Button
           variant="outlined"
           onClick={handleLastPage}
-          disabled={currentPage === totalPages} 
+          disabled={currentPage === totalPages} // Disable if on last page
         >
           Last <LastPageIcon />
         </Button>
@@ -148,7 +148,7 @@ export default function Dashboard() {
   const [openNewTask, setOpenNewTask] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openDeleteTask, setOpenDeleteTask] = useState(false); 
+  const [openDeleteTask, setOpenDeleteTask] = useState(false); // State for delete dialog
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -189,7 +189,7 @@ export default function Dashboard() {
   };
 
   const handleEditTask = (task) => {
-    setOpenNewTask(true); 
+    setOpenNewTask(true); // Use the same dialog for editing
     handleMenuClose();
   
   };
@@ -205,6 +205,7 @@ export default function Dashboard() {
     handleMenuClose(); // Close the menu
   };
 
+  // on close fun
   const closefun = () => {
     setOpenDeleteTask(false);
     setSelectedTask(null);
@@ -387,7 +388,7 @@ export default function Dashboard() {
 </div>
 
 
-       
+        {/* Pagination Component */}
         <CustomPagination
           totalRecords={totalRecords}
           recordsPerPage={recordsPerPage}
@@ -399,20 +400,22 @@ export default function Dashboard() {
         />
       </div>
 
+      {/* Dialog for New Task or Edit Task */}
       <Dialog open={openNewTask} onClose={handleCloseNewTask}>
-        {/* {selectedTask ? (
-          // <EditTask onClose={handleCloseNewTask} task={selectedTask} />
+        {selectedTask ? (
+          <EditTask onClose={handleCloseNewTask} task={selectedTask} />
         ) : (
           <NewTask onClose={handleCloseNewTask} />
-        )} */}
+        )}
       </Dialog>
 
+      {/* Delete Confirmation Dialog */}
       <Dialog open={openDeleteTask} onClose={() => setOpenDeleteTask(false)}>
-        {/* <DeleteTask
+        <DeleteTask
           onClose={closefun}
           task={selectedTask}
           fetchTasks={fetchTasks}
-        /> */}
+        />
       </Dialog>
     </div>
   );

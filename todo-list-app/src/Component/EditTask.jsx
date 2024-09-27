@@ -23,7 +23,7 @@ const EditTask = ({ onClose, task }) => {
       if (task && task._id) {
         try {
           const response = await axios.get(
-            `http://localhost:3002/tasks/${task._id}`
+            `http://localhost:5000/tasks/${task._id}`
           );
           const fetchedTask = response.data;
           setAssignedTo(fetchedTask.assignedTo || "");
@@ -51,7 +51,7 @@ const EditTask = ({ onClose, task }) => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:3002/tasks/${task._id}`,
+        `http://localhost:5000/tasks/${task._id}`,
         updatedTask
       );
       console.log("Task updated successfully:", response.data);
