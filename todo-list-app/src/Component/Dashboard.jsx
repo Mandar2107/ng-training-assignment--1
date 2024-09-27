@@ -25,9 +25,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import NewTask from "./NewTask";
 import EditTask from "./EditTask";
-import DeleteTask from "./DeleteTask"; // Import DeleteTask component
+import DeleteTask from "./DeleteTask";
 
-// Custom Pagination Component
 function CustomPagination({
   totalRecords,
   recordsPerPage,
@@ -51,7 +50,6 @@ function CustomPagination({
         margin: "20px",
       }}
     >
-      {/* Display current and total pages */}
       <div style={{ display: "flex", alignItems: "center" }}>
         <span
           style={{
@@ -68,7 +66,7 @@ function CustomPagination({
             textAlign: "center",
           }}
         >
-          {recordsPerPage} {/* Showing current page out of total */}
+          {recordsPerPage}
         </span>
         <div
           style={{
@@ -82,21 +80,20 @@ function CustomPagination({
           <IconButton
             style={{ height: "20px" }}
             onClick={() => setRecordsPerPage((prev) => prev + 1)} 
-            disabled={recordsPerPage === 20 || recordsPerPage === totalRecords} // Disable if on last page
+            disabled={recordsPerPage === 20 || recordsPerPage === totalRecords} 
           >
             <span style={{ fontSize: "10px" }}>▲</span>
           </IconButton>
           <IconButton
             style={{ height: "20px" }}
             onClick={() => setRecordsPerPage((prev) => prev - 1)}
-            disabled={recordsPerPage === 4} // Disable if on first page
+            disabled={recordsPerPage === 4}
           >
             <span style={{ fontSize: "10px" }}>▼</span>
           </IconButton>
         </div>
       </div>
 
-      {/* Pagination Controls */}
       <div
         style={{
           display: "flex",
@@ -104,41 +101,36 @@ function CustomPagination({
           backgroundColor: "white",
         }}
       >
-        {/* First page button */}
         <Button
           variant="outlined"
           onClick={handleFirstPage}
-          disabled={currentPage === 1} // Disable if on first page
+          disabled={currentPage === 1}
         >
           <FirstPageIcon /> First
         </Button>
 
-        {/* Previous page button */}
         <Button
           variant="outlined"
           onClick={handlePrevPage}
-          disabled={currentPage === 1} // Disable if on first page
+          disabled={currentPage === 1}
         >
           <NavigateBeforeIcon /> Prev
         </Button>
 
-        {/* Showing current page */}
         <span style={{ margin: "0 10px" }}>{currentPage}</span>
 
-        {/* Next page button */}
         <Button
           variant="outlined"
           onClick={handleNextPage}
-          disabled={currentPage === totalPages} // Disable if on last page
+          disabled={currentPage === totalPages}
         >
           Next <NavigateNextIcon />
         </Button>
 
-        {/* Last page button */}
         <Button
           variant="outlined"
           onClick={handleLastPage}
-          disabled={currentPage === totalPages} // Disable if on last page
+          disabled={currentPage === totalPages} 
         >
           Last <LastPageIcon />
         </Button>
@@ -147,7 +139,6 @@ function CustomPagination({
   );
 }
 
-// Dashboard Component
 export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(4);
@@ -157,9 +148,8 @@ export default function Dashboard() {
   const [openNewTask, setOpenNewTask] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openDeleteTask, setOpenDeleteTask] = useState(false); // State for delete dialog
+  const [openDeleteTask, setOpenDeleteTask] = useState(false); 
 
-  // Search functionality
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredTasks = tasks.filter((task) => {
@@ -171,10 +161,9 @@ export default function Dashboard() {
     );
   });
 
-  // Fetch tasks from API
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:3002/tasks");
+      const response = await axios.get("http://localhost:5000/tasks");
       setTasks(response.data);
       setTotalRecords(response.data.length);
       setTotalPages(Math.ceil(response.data.length / recordsPerPage));
@@ -200,7 +189,7 @@ export default function Dashboard() {
   };
 
   const handleEditTask = (task) => {
-    setOpenNewTask(true); // Use the same dialog for editing
+    setOpenNewTask(true); 
     handleMenuClose();
   
   };
@@ -216,7 +205,6 @@ export default function Dashboard() {
     handleMenuClose(); // Close the menu
   };
 
-  // on close fun
   const closefun = () => {
     setOpenDeleteTask(false);
     setSelectedTask(null);
@@ -399,7 +387,7 @@ export default function Dashboard() {
 </div>
 
 
-        {/* Pagination Component */}
+       
         <CustomPagination
           totalRecords={totalRecords}
           recordsPerPage={recordsPerPage}
@@ -411,7 +399,6 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Dialog for New Task or Edit Task */}
       <Dialog open={openNewTask} onClose={handleCloseNewTask}>
         {selectedTask ? (
           <EditTask onClose={handleCloseNewTask} task={selectedTask} />
@@ -420,7 +407,6 @@ export default function Dashboard() {
         )}
       </Dialog>
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={openDeleteTask} onClose={() => setOpenDeleteTask(false)}>
         <DeleteTask
           onClose={closefun}
