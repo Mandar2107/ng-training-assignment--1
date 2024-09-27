@@ -1,12 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TaskList from './Component/TaskList'; // Import TaskList component
-
+import Dashboard from './Component/Dashboard';
 function App() {
   return (
     <div className="App">
-      <TaskList />
-    </div>
+      <Dashboard/>
+      </div>
   );
 }
 

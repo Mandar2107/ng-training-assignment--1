@@ -24,8 +24,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import NewTask from "./NewTask";
-import EditTask from "./EditTask";
-import DeleteTask from "./DeleteTask";
+// import EditTask from "./EditTask";
+// import DeleteTask from "./DeleteTask";
 
 function CustomPagination({
   totalRecords,
@@ -400,19 +400,19 @@ export default function Dashboard() {
       </div>
 
       <Dialog open={openNewTask} onClose={handleCloseNewTask}>
-        {selectedTask ? (
-          <EditTask onClose={handleCloseNewTask} task={selectedTask} />
+        {/* {selectedTask ? (
+          // <EditTask onClose={handleCloseNewTask} task={selectedTask} />
         ) : (
           <NewTask onClose={handleCloseNewTask} />
-        )}
+        )} */}
       </Dialog>
 
       <Dialog open={openDeleteTask} onClose={() => setOpenDeleteTask(false)}>
-        <DeleteTask
+        {/* <DeleteTask
           onClose={closefun}
           task={selectedTask}
           fetchTasks={fetchTasks}
-        />
+        /> */}
       </Dialog>
     </div>
   );
